@@ -1,5 +1,5 @@
 body {
-    background-color: grey;
+    background-color: #87adff;
     display: flex;
     flex-direction: column;
     align-items: center;;
@@ -9,6 +9,40 @@ button {
     padding: 4px 8px;
     margin: 32px;
     border-radius: 12px;
+    color: #ffffff;
+    text-shadow: #310099 1px 1px 4px;
+    font-size: 24px;
+    background-color: #7300ff;
+    box-shadow: 0 0 5px #7300ff;
+    border: #310099 solid 2px;
+}
+
+label {
+    color: #ffffff;
+    text-shadow: #310099 1px 1px 4px;
+    font-size: 24px;
+}
+
+input[type='range']{ 
+    accent-color: #7300ff; 
+}
+
+input[type='color']{ 
+    box-shadow: 0 0 5px #7300ff;
+}
+
+#buttons {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
 #container {

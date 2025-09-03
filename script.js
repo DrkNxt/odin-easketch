@@ -1,58 +1,51 @@
-const gridSizeBtn = document.querySelector("#gridSizeBtn");
+const gridSizeRange = document.querySelector("#gridSizeRange");
+const gridSizeLabel = document.querySelector("#gridSizeLabel");
 const rainbowBtn = document.querySelector("#rainbowBtn");
 const shadeBtn = document.querySelector("#shadeBtn");
 const eraseBtn = document.querySelector("#eraseBtn");
+const colorPicker = document.querySelector("#colorPicker");
 const container = document.querySelector("#container");
 const CONTAINER_SIZE = 768;
 
 let rainbowMode = false;
 let shadeMode = false;
 let eraseMode = false;
+let color = "#000000";
 
 function colorSquare(target) {
-    if (shadeMode) {
+
+    if (rainbowMode && !eraseMode) {
+        let red = Math.floor(Math.random() * 256);
+        let green = Math.floor(Math.random() * 256);
+        let blue = Math.floor(Math.random() * 256);
+        color = `rgb(${red}, ${green}, ${blue})`
+    }
+
+    if (shadeMode && !eraseMode) {
         let targetStyle = window.getComputedStyle(target);
-        if (!target.classList.contains("colored")) {
+        if (!target.classList.contains("shaded")) {
             if (targetStyle.getPropertyValue("opacity") === "1") {
                 target.style.opacity = "0.1";
             }else {
                 target.style.opacity = String(parseFloat(targetStyle.getPropertyValue("opacity")) + 0.1);
             }
             if (targetStyle.getPropertyValue("opacity") === "1") {
-                target.classList.add("colored");
+                target.classList.add("shaded");
             }
-            target.style.backgroundColor = "#000000";
+            target.style.backgroundColor = color;
         }
-    }else if (rainbowMode) {
-        let red = Math.floor(Math.random() * 256);
-        let green = Math.floor(Math.random() * 256);
-        let blue = Math.floor(Math.random() * 256);
-        target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+    } else {
+        target.style.backgroundColor = color;
         target.style.opacity = "1";
-        target.classList.add("colored");
-    }else if (eraseMode) {
-        target.style.backgroundColor = "#ffffff";
-        target.style.opacity = "1";
-        target.classList.remove("colored");
-    }
-    else {
-        target.style.backgroundColor = "#000000";
-        target.style.opacity = "1";
-        target.classList.add("colored");
+        target.classList.remove("shaded");
     }
 }
 
-function chooseGridSize() {
-    size = prompt("Grid Size (1-100):");
-    if (size == null || size < 1 || size > 100) {
-        console.log("Invalid size")
-    } else {
-        for (let square of document.querySelectorAll(".square")) {
-            square.remove();
-        }
-        createSquares(size);
-        console.log(size);
+function chooseGridSize(size) {
+    for (let square of document.querySelectorAll(".square")) {
+        square.remove();
     }
+    createSquares(size);
 }
 
 function createSquares(n) {
@@ -67,42 +60,54 @@ function createSquares(n) {
     }
 }
 
-function resetColors() {
-    rainbowBtn.style.backgroundColor = "#ffffff";
-    shadeBtn.style.backgroundColor = "#ffffff";
-    eraseBtn.style.backgroundColor = "#ffffff";
-}
-
 createSquares(16);
 
-gridSizeBtn.addEventListener("click", chooseGridSize);
+gridSizeRange.addEventListener("input", e => {
+    let value = e.target.value;
+    chooseGridSize(e.target.value);
+    gridSizeLabel.textContent = `${value}x${value}`
+});
+
+colorPicker.addEventListener("input", e => {
+    color = e.target.value;
+})
 
 rainbowBtn.addEventListener("click", () => {
-    shadeMode = false;
-    eraseMode = false;
     rainbowMode = !rainbowMode;
-    resetColors();
     if (rainbowMode) {
-        rainbowBtn.style.backgroundColor = "#bdffbdff";
+        rainbowBtn.style.backgroundColor = "#e600ff";
+        rainbowBtn.style.boxShadow = "0 0 5px #e600ff";
+    }else {
+         rainbowBtn.style.backgroundColor = "#7300ff";
+         rainbowBtn.style.boxShadow = "0 0 5px #7300ff";
+         if (eraseMode) {
+            color = "#ffffff";
+         }else {
+            color = colorPicker.value;
+         }
     }
 });
 
 shadeBtn.addEventListener("click", () => {
-    rainbowMode = false;
-    eraseMode = false;
     shadeMode = !shadeMode;
-    resetColors();
     if (shadeMode) {
-        shadeBtn.style.backgroundColor = "#bdffbdff";
+        shadeBtn.style.backgroundColor = "#e600ff";
+        shadeBtn.style.boxShadow = "0 0 5px #e600ff";
+    } else {
+        shadeBtn.style.backgroundColor = "#7300ff";
+        shadeBtn.style.boxShadow = "0 0 5px #7300ff";
     }
 })
 
 eraseBtn.addEventListener("click", () => {
-    rainbowMode = false;
-    shadeMode = false;
     eraseMode = !eraseMode;
-    resetColors();
     if (eraseMode) {
-        eraseBtn.style.backgroundColor = "#bdffbdff";
+        eraseBtn.style.backgroundColor = "#e600ff";
+        eraseBtn.style.boxShadow = "0 0 5px #e600ff";
+        color = "#ffffff";
+    }else {
+        eraseBtn.style.backgroundColor = "#7300ff";
+        eraseBtn.style.boxShadow = "0 0 5px #7300ff";
+        color = colorPicker.value;
     }
 })
