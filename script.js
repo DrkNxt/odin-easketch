@@ -1,18 +1,37 @@
 const gridSizeBtn = document.querySelector("#gridSizeBtn");
 const rainbowBtn = document.querySelector("#rainbowBtn");
+const shadeBtn = document.querySelector("#shadeBtn");
 const container = document.querySelector("#container");
 const CONTAINER_SIZE = 768;
 
 let rainbowMode = false;
+let shadeMode = false;
 
 function colorSquare(target) {
-    if (!rainbowMode) {
-        target.style.backgroundColor = "black";
-    }else {
+    if (shadeMode) {
+        let targetStyle = window.getComputedStyle(target);
+        if (!target.classList.contains("colored")) {
+            if (targetStyle.getPropertyValue("opacity") === "1") {
+                target.style.opacity = "0.1";
+            }else {
+                target.style.opacity = String(parseFloat(targetStyle.getPropertyValue("opacity")) + 0.1);
+            }
+            if (targetStyle.getPropertyValue("opacity") === "1") {
+                target.classList.add("colored");
+            }
+            target.style.backgroundColor = "#000000";
+        }
+    }else if (rainbowMode) {
         let red = Math.floor(Math.random() * 256);
         let green = Math.floor(Math.random() * 256);
         let blue = Math.floor(Math.random() * 256);
         target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+        target.style.opacity = "1";
+        target.classList.add("colored");
+    }else {
+        target.style.backgroundColor = "#000000";
+        target.style.opacity = "1";
+        target.classList.add("colored");
     }
 }
 
@@ -30,7 +49,7 @@ function chooseGridSize() {
 }
 
 function createSquares(n) {
-    let squareSize = CONTAINER_SIZE / n -2
+    let squareSize = CONTAINER_SIZE / n
     for (let i=0; i<n*n; i++) {
         let square = document.createElement("div");
         square.classList.add("square");
@@ -44,6 +63,11 @@ function createSquares(n) {
 createSquares(16);
 
 gridSizeBtn.addEventListener("click", chooseGridSize);
+
 rainbowBtn.addEventListener("click", () => {
     rainbowMode = !rainbowMode;
+});
+
+shadeBtn.addEventListener("click", () => {
+    shadeMode = !shadeMode;
 })
