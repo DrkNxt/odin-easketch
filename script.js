@@ -1,11 +1,13 @@
 const gridSizeBtn = document.querySelector("#gridSizeBtn");
 const rainbowBtn = document.querySelector("#rainbowBtn");
 const shadeBtn = document.querySelector("#shadeBtn");
+const eraseBtn = document.querySelector("#eraseBtn");
 const container = document.querySelector("#container");
 const CONTAINER_SIZE = 768;
 
 let rainbowMode = false;
 let shadeMode = false;
+let eraseMode = false;
 
 function colorSquare(target) {
     if (shadeMode) {
@@ -28,7 +30,12 @@ function colorSquare(target) {
         target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
         target.style.opacity = "1";
         target.classList.add("colored");
-    }else {
+    }else if (eraseMode) {
+        target.style.backgroundColor = "#ffffff";
+        target.style.opacity = "1";
+        target.classList.remove("colored");
+    }
+    else {
         target.style.backgroundColor = "#000000";
         target.style.opacity = "1";
         target.classList.add("colored");
@@ -60,28 +67,42 @@ function createSquares(n) {
     }
 }
 
+function resetColors() {
+    rainbowBtn.style.backgroundColor = "#ffffff";
+    shadeBtn.style.backgroundColor = "#ffffff";
+    eraseBtn.style.backgroundColor = "#ffffff";
+}
+
 createSquares(16);
 
 gridSizeBtn.addEventListener("click", chooseGridSize);
 
 rainbowBtn.addEventListener("click", () => {
+    shadeMode = false;
+    eraseMode = false;
     rainbowMode = !rainbowMode;
+    resetColors();
     if (rainbowMode) {
         rainbowBtn.style.backgroundColor = "#bdffbdff";
-    }else {
-        rainbowBtn.style.backgroundColor = "#ffffff";
     }
-    shadeBtn.style.backgroundColor = "#ffffff";
-    shadeMode = false;
 });
 
 shadeBtn.addEventListener("click", () => {
+    rainbowMode = false;
+    eraseMode = false;
     shadeMode = !shadeMode;
+    resetColors();
     if (shadeMode) {
         shadeBtn.style.backgroundColor = "#bdffbdff";
-    }else {
-        shadeBtn.style.backgroundColor = "#ffffff";
     }
-    rainbowBtn.style.backgroundColor = "#ffffff";
+})
+
+eraseBtn.addEventListener("click", () => {
     rainbowMode = false;
+    shadeMode = false;
+    eraseMode = !eraseMode;
+    resetColors();
+    if (eraseMode) {
+        eraseBtn.style.backgroundColor = "#bdffbdff";
+    }
 })
