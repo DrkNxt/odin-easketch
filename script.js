@@ -1,9 +1,19 @@
 const gridSizeBtn = document.querySelector("#gridSizeBtn");
+const rainbowBtn = document.querySelector("#rainbowBtn");
 const container = document.querySelector("#container");
-const CONTAINER_SIZE = 512;
+const CONTAINER_SIZE = 768;
+
+let rainbowMode = false;
 
 function colorSquare(target) {
-    target.style.backgroundColor = "black";
+    if (!rainbowMode) {
+        target.style.backgroundColor = "black";
+    }else {
+        let red = Math.floor(Math.random() * 256);
+        let green = Math.floor(Math.random() * 256);
+        let blue = Math.floor(Math.random() * 256);
+        target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+    }
 }
 
 function chooseGridSize() {
@@ -32,4 +42,8 @@ function createSquares(n) {
 }
 
 createSquares(16);
+
 gridSizeBtn.addEventListener("click", chooseGridSize);
+rainbowBtn.addEventListener("click", () => {
+    rainbowMode = !rainbowMode;
+})
