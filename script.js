@@ -66,8 +66,22 @@ gridSizeBtn.addEventListener("click", chooseGridSize);
 
 rainbowBtn.addEventListener("click", () => {
     rainbowMode = !rainbowMode;
+    if (rainbowMode) {
+        rainbowBtn.style.backgroundColor = "#bdffbdff";
+    }else {
+        rainbowBtn.style.backgroundColor = "#ffffff";
+    }
+    shadeBtn.style.backgroundColor = "#ffffff";
+    shadeMode = false;
 });
 
 shadeBtn.addEventListener("click", () => {
     shadeMode = !shadeMode;
+    if (shadeMode) {
+        shadeBtn.style.backgroundColor = "#bdffbdff";
+    }else {
+        shadeBtn.style.backgroundColor = "#ffffff";
+    }
+    rainbowBtn.style.backgroundColor = "#ffffff";
+    rainbowMode = false;
 })
