@@ -55,12 +55,22 @@ function createSquares(n) {
         square.classList.add("square");
         square.style.width = squareSize + ("px");
         square.style.height = squareSize + ("px");
+        square.draggable = false;
         container.appendChild(square);
-        square.addEventListener("mouseenter", e => colorSquare(e.target));
+        square.addEventListener("mouseover", e => {
+            if (e.buttons === 1) {
+                colorSquare(e.target)
+            }
+        });
+        square.addEventListener("click", e => {
+            colorSquare(e.target)
+        });
     }
 }
 
 createSquares(16);
+
+document.addEventListener("dragstart", e => e.preventDefault());
 
 gridSizeRange.addEventListener("input", e => {
     let value = e.target.value;
