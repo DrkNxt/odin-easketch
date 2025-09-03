@@ -75,39 +75,45 @@ colorPicker.addEventListener("input", e => {
 rainbowBtn.addEventListener("click", () => {
     rainbowMode = !rainbowMode;
     if (rainbowMode) {
-        rainbowBtn.style.backgroundColor = "#e600ff";
-        rainbowBtn.style.boxShadow = "0 0 5px #e600ff";
+        rainbowBtn.style.backgroundColor = "#7300ff";
+        rainbowBtn.style.boxShadow = "0 0 16px #bdbdbd"
+        rainbowBtn.style.color = "#ffffff";
     }else {
-         rainbowBtn.style.backgroundColor = "#7300ff";
-         rainbowBtn.style.boxShadow = "0 0 5px #7300ff";
-         if (eraseMode) {
-            color = "#ffffff";
-         }else {
-            color = colorPicker.value;
-         }
+        rainbowBtn.style.backgroundColor = "#2e0066";
+        rainbowBtn.style.boxShadow = "0 0 8px #bdbdbd"
+        rainbowBtn.style.color = "#bdbdbd";
+        if (eraseMode) {
+           color = "#ffffff";
+        }else {
+           color = colorPicker.value;
+        }
     }
 });
 
 shadeBtn.addEventListener("click", () => {
     shadeMode = !shadeMode;
     if (shadeMode) {
-        shadeBtn.style.backgroundColor = "#e600ff";
-        shadeBtn.style.boxShadow = "0 0 5px #e600ff";
-    } else {
         shadeBtn.style.backgroundColor = "#7300ff";
-        shadeBtn.style.boxShadow = "0 0 5px #7300ff";
+        shadeBtn.style.boxShadow = "0 0 16px #bdbdbd"
+        shadeBtn.style.color = "#ffffff";
+    } else {
+        shadeBtn.style.backgroundColor = "#2e0066";
+        shadeBtn.style.boxShadow = "0 0 8px #bdbdbd"
+        shadeBtn.style.color = "#bdbdbd";
     }
 })
 
 eraseBtn.addEventListener("click", () => {
     eraseMode = !eraseMode;
     if (eraseMode) {
-        eraseBtn.style.backgroundColor = "#e600ff";
-        eraseBtn.style.boxShadow = "0 0 5px #e600ff";
+        eraseBtn.style.backgroundColor = "#7300ff";
+        eraseBtn.style.boxShadow = "0 0 16px #bdbdbd"
+        eraseBtn.style.color = "#ffffff";
         color = "#ffffff";
     }else {
-        eraseBtn.style.backgroundColor = "#7300ff";
-        eraseBtn.style.boxShadow = "0 0 5px #7300ff";
+        eraseBtn.style.backgroundColor = "#2e0066";
+        eraseBtn.style.boxShadow = "0 0 8px #bdbdbd"
+        eraseBtn.style.color = "#bdbdbd";
         color = colorPicker.value;
     }
 })
